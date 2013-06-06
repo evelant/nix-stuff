@@ -1,0 +1,41 @@
+#
+#install a build environment with
+nix-env -i env-rvm
+
+#this environment lives at ~/.nixpkgs/options.nix
+#and defines a package override that calls myEnvFun to make a custom environment
+#{
+#  packageOverrides = pkgs : with pkgs; {
+#      rvmEnv = pkgs.myEnvFun {
+#            name = "rvm";
+#                  buildInputs = [ stdenv zlib openssl libxml2 libxslt libiconv ];
+#                        extraCmds = ''
+#                                unset http_proxy
+#                                        unset ftp_proxy
+#                                                export LIBXML2_DIR=${libxml2}
+#                                                        export LIBXSLT_DIR=${libxslt}
+#                                                                export LIBICONV_DIR=${libiconv}
+#                                                                      '';
+#                                                                          };
+#                                                                            };
+#                                                                            }
+#
+
+#switch to custom environment with
+load-env-rvm
+
+#install rvm with 
+\curl -L https://get.rvm.io | bash -s stable --rails
+
+#source the rvm script with
+source ~/.rvm/scripts/rvm
+
+
+#install nokogiri with the followign because it cannot find libxml in the environment 
+gem install nokogiri -- --with-xml2-include=$LIBXML2_DIR/include/libxml2 --with-xml2-lib=$LIBXML2_DIR/lib
+
+#set mysql password with
+mysqladmin -u root password fignuts
+
+#import mysql database with
+mysql -u root -p -h localhost peeramid_development < dbdumps.sql
