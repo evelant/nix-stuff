@@ -77,17 +77,23 @@
    services.virtualbox.enable = true;
    services.openssh.enable = true;
 
-  #enable mysql
-  services.mysql55.enable = true;
-
+   #enable mysql
+   services.mysql55.enable = true;
+   
+   services.mongodb.enable = true;
 
    environment.systemPackages = with pkgs; [
       vim 
       wget 
       git
-      memcached
       firefox
       chromiumDev
       oxygen_gtk
+      nodejs
+      jdk
+      unzip
+      which
+      redis
+      sublime
    ];
 }
