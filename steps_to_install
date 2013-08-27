@@ -83,3 +83,12 @@ mysql -u root -p -h localhost peeramid_development < dbdumps.sql
 \curl -L https://get.rvm.io | bash -s stable --autolibs=0
 rvm reinstall 2.0.0 --autolibs=0 --with-openssl-dir=/nix/store/c2rylmj37gfwykh9h3b6271l96x7hknd-openssl-1.0.1e/
 
+
+#import mongodb from production to local
+#to dump
+mongodump -h ds035598-a0.mongolab.com:35598 -d peeramid -u <user> -p <password> -o <output directory> 
+
+#to restore
+mongorestore -d peeramid <dump_directory>
+
+
