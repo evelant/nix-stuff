@@ -39,3 +39,47 @@ mysqladmin -u root password fignuts
 
 #import mysql database with
 mysql -u root -p -h localhost peeramid_development < dbdumps.sql
+
+
+
+
+
+#other way to install RVM
+  environment.systemPackages = with pkgs; [
+    vim 
+    wget 
+    git
+    firefox
+    chromiumDev
+    oxygen_gtk
+    nodejs
+    jdk
+    unzip
+    which
+    redis
+    sublime
+    dropbox
+    dropbox-cli
+    mono
+    mysqlWorkbench
+    gcc
+    curl
+    openssl
+    sqlite
+    patch
+    readline
+    zlib
+    libyaml
+    libxml2
+    libxslt
+    libtool
+    bison
+    v8
+    automake
+    gnumake
+    mongodb
+    ];
+
+\curl -L https://get.rvm.io | bash -s stable --autolibs=0
+rvm reinstall 2.0.0 --autolibs=0 --with-openssl-dir=/nix/store/c2rylmj37gfwykh9h3b6271l96x7hknd-openssl-1.0.1e/
+
