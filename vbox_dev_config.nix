@@ -6,7 +6,7 @@
 {
   require =
     [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
+    ./hardware-configuration.nix
     ];
 
   boot.initrd.kernelModules =
@@ -14,7 +14,7 @@
       # filesystem.
       # "xfs" "ata_piix"
     ];
-    
+
 
   # Use the GRUB 2 boot loader.
   boot.loader.grub.enable = true;
@@ -22,7 +22,7 @@
 
   #splashutils wont run without this check stage1 systemd module
   #boot.vesa = true;
-  #
+
 
   # Define on which hard drive you want to install Grub.
   boot.loader.grub.device = "/dev/sda";
@@ -33,7 +33,6 @@
   # Add filesystem entries for each partition that you want to see
   # mounted at boot time.  This should include at least the root
   # filesystem.
-
   fileSystems."/".device = "/dev/disk/by-label/nix";
 
   # fileSystems."/data" =     # where you want to mount the device
@@ -45,7 +44,7 @@
   # List swap partitions activated at boot time.
   swapDevices =
     [  { device = "/dev/disk/by-label/nixswap"; }
-    ];
+  ];
 
   # Select internationalisation properties.
   # i18n = {
@@ -63,37 +62,70 @@
   # services.printing.enable = true;
   #
 
+  #force kde 4.10
+  nixpkgs.config.packageOverrides = pkgs:
+  {
+    kde4 = pkgs.recurseIntoAttrs pkgs.kde410;
+  };
 
   # Enable the X11 windowing system.
-   services.xserver.enable = true;
-   services.xserver.layout = "us";
+  services.xserver.enable = true;
+  services.xserver.layout = "us";
   # services.xserver.xkbOptions = "eurosign:e";
 
   # Enable the KDE Desktop Environment.
-   services.xserver.displayManager.kdm.enable = true;
-   services.xserver.desktopManager.kde4.enable = true;
+  services.xserver.displayManager.kdm.enable = true;
+  services.xserver.desktopManager.kde4.enable = true;
 
   # Enable virtualbox
-   services.virtualbox.enable = true;
-   services.openssh.enable = true;
+  services.virtualbox.enable = true;
+  services.openssh.enable = true;
 
-   #enable mysql
-   services.mysql55.enable = true;
-   
-   services.mongodb.enable = true;
+  #enable mysql
+  services.mysql55.enable = true;
 
-   environment.systemPackages = with pkgs; [
-      vim 
-      wget 
-      git
-      firefox
-      chromiumDev
-      oxygen_gtk
-      nodejs
-      jdk
-      unzip
-      which
-      redis
-      sublime
-   ];
+  #enable mongodb
+  services.mongodb.enable = true;
+
+
+  environment.systemPackages = with pkgs; [
+    vim 
+    wget 
+    git
+    firefox
+    chromiumDev
+    oxygen_gtk
+    nodejs
+    jdk
+    unzip
+    which
+    redis
+    sublime
+    dropbox
+    dropbox-cli
+    mono
+    mysqlWorkbench
+    gcc
+    curl
+    openssl
+    sqlite
+    patch
+    readline
+    zlib
+    libyaml
+    libxml2
+    libxslt
+    libtool
+    bison
+    v8
+    automake
+    gnumake
+    ];
+
+
+  #set vars so oxygen gtk runs to make gtk apps pretty
+  environment.shellInit = ''
+    export GTK_PATH=$GTK_PATH:${pkgs.oxygen_gtk}/lib/gtk-2.0
+    export GTK2_RC_FILES=$GTK2_RC_FILES:${pkgs.oxygen_gtk}/share/themes/oxygen-gtk/gtk-2.0/gtkrc
+  '';
 }
