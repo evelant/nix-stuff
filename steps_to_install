@@ -80,8 +80,8 @@ mysql -u root -p -h localhost peeramid_development < dbdumps.sql
     mongodb
     ];
 
-\curl -L https://get.rvm.io | bash -s stable --autolibs=0
-rvm reinstall 2.0.0 --autolibs=0 --with-openssl-dir=/nix/store/c2rylmj37gfwykh9h3b6271l96x7hknd-openssl-1.0.1e/
+\curl -L https://get.rvm.io | bash -s stable --autolibs=0 --auto-dotfiles
+rvm reinstall 2.0.0 --autolibs=0 --with-openssl-dir=$OPENSSL_DIR --with-readline-dir=$READLINE_DIR
 
 
 #import mongodb from production to local
