@@ -92,3 +92,10 @@ mongodump -h ds035598-a0.mongolab.com:35598 -d peeramid -u <user> -p <password> 
 mongorestore -d peeramid <dump_directory>
 
 
+as of 7/13
+
+
+\curl -sSL https://get.rvm.io | bash -s stable --autolibs=0 --auto-dotfiles
+rvm reinstall 1.9.3 --autolibs=0 --with-libyaml-dir=$LIBYAML_DIR --with-openssl-dir=$OPENSSL_DIR --with-readline-dir=$READLINE_DIR
+
+
