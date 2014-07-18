@@ -50,7 +50,7 @@
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
    environment.systemPackages = with pkgs; [
-     
+     i7z 
      wget
      gparted
      vim
@@ -58,7 +58,7 @@
      jdk
      steamChrootEnv
      which
-     firefoxWrapper
+     #firefoxWrapper
      chromiumWrapper
      google_talk_plugin
      oxygen_gtk
@@ -73,6 +73,8 @@
      kde4.kdemultimedia
      kde4.kdegraphics
      kde4.kdelibs
+     kde4.nepomuk_core #kdepim won't work unless this is installed
+     kde4.nepomuk_widgets
      kde4.kdenetwork
      kde4.kdeutils
      kde4.kdeadmin
@@ -92,7 +94,11 @@
      kde4.print_manager
      kde4.kdeconnect
      kde4.kdepim
+     kde4.kdepimlibs
+     kde4.kdepim_runtime
+     kde4.calligra
      kde4.akonadi #required by kmail in kdepim
+     kde4.konversation
 #    sshfsFuse required for remote filesystem on kdeconnect
      kde4.ktorrent
      thunderbird
@@ -109,12 +115,19 @@
 #    xsel must be installed to copy paste text out of keepass, should add it to keepass deps
      xsel
      dfeet
+     soprano #needed for kde nepomuk 
+     python27Full
+     python27Packages.boto
+     python27Packages.botocore
+     dwarf_fortress_modable
+     dwarf-therapist
+     firefox-bin #binary version of firefox seems to work with sync while other ff package does not
    ];
 
    nixpkgs.config.chromium.enablePepperFlash = true;
    nixpkgs.config.chromium.enableGoogleTalkPlugin = true;
-   nixpkgs.config.firefox.enableAdobeFlash = true;
-   nixpkgs.config.firefox.enableGoogleTalkPlugin = true;
+   #nixpkgs.config.firefox.enableAdobeFlash = true;
+   #nixpkgs.config.firefox.enableGoogleTalkPlugin = true;
 
    services.locate.enable = true;
    services.printing.enable = true;
@@ -126,6 +139,7 @@
    services.mongodb.enable = true;
    services.elasticsearch.enable = true;
    services.mysql.enable = true; #for akonadi an kde see https://github.com/NixOS/nixpkgs/issues/1053
+   services.virtuoso.enable = true; #for kde nepomuk search indexer
    services.mysql.package = pkgs.mysql55;
    services.redis.enable = true;
 
@@ -172,6 +186,7 @@
   # Enable the KDE Desktop Environment.
    services.xserver.displayManager.kdm.enable = true;
    services.xserver.desktopManager.kde4.enable = true;
+   hardware.opengl.driSupport32Bit = true; #needed for most steam/wine games to run
 
    services.xserver.synaptics = {
      enable = true;
