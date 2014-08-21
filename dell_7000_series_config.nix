@@ -15,6 +15,7 @@
   # Use the gummiboot efi boot loader.
   boot.loader.gummiboot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
 
    networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless.
@@ -42,21 +43,22 @@
 
     nixpkgs.config.packageOverrides = pkgs :
     {
-        #jdk = pkgs.oraclejdk;
-        #jre = pkgs.oraclejre;
+        jdk = pkgs.oraclejdk8;
+        jre = pkgs.oraclejre8;
         wine = pkgs.wineUnstable;
     };
 
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
    environment.systemPackages = with pkgs; [
+     eclipses.eclipse_sdk_44
      i7z 
      wget
      gparted
      vim
      git
      jdk
-     steamChrootEnv
+     #steamChrootEnv #installed from other repo until patches here pulled https://github.com/NixOS/nixpkgs/pull/2355
      which
      #firefoxWrapper
      chromiumWrapper
@@ -119,18 +121,23 @@
      python27Full
      python27Packages.boto
      python27Packages.botocore
-     dwarf_fortress_modable
-     dwarf-therapist
+     #dwarf_fortress_modable
+     #dwarf-therapist
      firefox-bin #binary version of firefox seems to work with sync while other ff package does not
+     gutenprint
+     flightgear
+     #robomongo
+     kde4.qtcurve
    ];
 
    nixpkgs.config.chromium.enablePepperFlash = true;
-   nixpkgs.config.chromium.enableGoogleTalkPlugin = true;
+   #nixpkgs.config.chromium.enableGoogleTalkPlugin = true;
    #nixpkgs.config.firefox.enableAdobeFlash = true;
    #nixpkgs.config.firefox.enableGoogleTalkPlugin = true;
 
    services.locate.enable = true;
    services.printing.enable = true;
+   services.printing.drivers = [ pkgs.splix pkgs.cupsBjnp pkgs.gutenprint ];
    services.printing.cupsdConf = ''
     BrowseRemoteProtocols all
    '';
@@ -204,6 +211,7 @@
         Option "SoftButtonAreas" "50% 0 3600 0 0 0 0 0"
         #Option "TapAndDragGesture" "0"
         Option "AreaBottomEdge" "3600"
+        Option "GrabEventDevice" "off"
      '';
 
    };
@@ -223,4 +231,9 @@
      shell = "/run/current-system/sw/bin/bash";
    };
 
+
+    security.sudo.configFile = ''
+        imagio ALL=(ALL) ALL
+    '';
 }
+
