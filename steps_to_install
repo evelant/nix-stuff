@@ -71,9 +71,6 @@ source ~/.rvm/scripts/rvm
     mongodb
     ];
 
-\curl -L https://get.rvm.io | bash -s stable --autolibs=0 --auto-dotfiles
-rvm reinstall 2.0.0 --autolibs=0 --with-openssl-dir=$OPENSSL_DIR --with-readline-dir=$READLINE_DIR
-
 
 #import mongodb from production to local
 #to dump
