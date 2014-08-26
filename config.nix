@@ -12,8 +12,6 @@
         export LIBICONV_DIR=${libiconv}
         export OPENSSL_DIR=${openssl}
         export READLINE_DIR=${readline}
-        bash --login
-        rvm use ruby
       '';
     };
   };
