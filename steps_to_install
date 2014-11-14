@@ -31,15 +31,6 @@ load-env-rvm
 source ~/.rvm/scripts/rvm
 
 
-#install nokogiri with the followign because it cannot find libxml in the environment 
-gem install nokogiri -- --with-xml2-include=$LIBXML2_DIR/include/libxml2 --with-xml2-lib=$LIBXML2_DIR/lib
-
-#set mysql password with
-mysqladmin -u root password fignuts
-
-#import mysql database with
-mysql -u root -p -h localhost peeramid_development < dbdumps.sql
-
 
 
 
@@ -80,9 +71,6 @@ mysql -u root -p -h localhost peeramid_development < dbdumps.sql
     mongodb
     ];
 
-\curl -L https://get.rvm.io | bash -s stable --autolibs=0 --auto-dotfiles
-rvm reinstall 2.0.0 --autolibs=0 --with-openssl-dir=$OPENSSL_DIR --with-readline-dir=$READLINE_DIR
-
 
 #import mongodb from production to local
 #to dump
@@ -96,6 +84,6 @@ as of 7/13
 
 
 \curl -sSL https://get.rvm.io | bash -s stable --autolibs=0 --auto-dotfiles
-rvm reinstall 1.9.3 --autolibs=0 --with-libyaml-dir=$LIBYAML_DIR --with-openssl-dir=$OPENSSL_DIR --with-readline-dir=$READLINE_DIR
+rvm reinstall 2.1.2 --autolibs=0 --with-libyaml-dir=$LIBYAML_DIR --with-openssl-dir=$OPENSSL_DIR --with-readline-dir=$READLINE_DIR
 
 
